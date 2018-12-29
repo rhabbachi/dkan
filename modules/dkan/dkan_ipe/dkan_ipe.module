@@ -31,23 +31,23 @@ function dkan_ipe_entity_info_alter(&$entity_info) {
   $entity_info['fieldable_panels_pane']['bundles']['image']['label'] = t('Image');
   // Text.
   $entity_info['fieldable_panels_pane']['bundles']['text']['label'] = t('Text');
-  $entity_info['fieldable_panels_pane']['bundles']['text']['pane category'] = t('custom');
+  $entity_info['fieldable_panels_pane']['bundles']['text']['pane category'] = t('Custom');
   $entity_info['fieldable_panels_pane']['bundles']['text']['pane top level'] = FALSE;
   // Map.
   $entity_info['fieldable_panels_pane']['bundles']['map']['label'] = t('Map');
-  $entity_info['fieldable_panels_pane']['bundles']['map']['pane category'] = t('custom');
+  $entity_info['fieldable_panels_pane']['bundles']['map']['pane category'] = t('Custom');
   $entity_info['fieldable_panels_pane']['bundles']['map']['pane top level'] = FALSE;
   // Table.
   $entity_info['fieldable_panels_pane']['bundles']['table']['label'] = t('Table');
-  $entity_info['fieldable_panels_pane']['bundles']['table']['pane category'] = t('custom');
+  $entity_info['fieldable_panels_pane']['bundles']['table']['pane category'] = t('Custom');
   $entity_info['fieldable_panels_pane']['bundles']['table']['pane top level'] = FALSE;
   // Video.
   $entity_info['fieldable_panels_pane']['bundles']['video']['label'] = t('Video');
-  $entity_info['fieldable_panels_pane']['bundles']['video']['pane category'] = t('custom');
+  $entity_info['fieldable_panels_pane']['bundles']['video']['pane category'] = t('Custom');
   $entity_info['fieldable_panels_pane']['bundles']['video']['pane top level'] = FALSE;
   // Spotlight.
   $entity_info['fieldable_panels_pane']['bundles']['spotlight']['label'] = t('Slideshow');
-  $entity_info['fieldable_panels_pane']['bundles']['spotlight']['pane category'] = t('custom');
+  $entity_info['fieldable_panels_pane']['bundles']['spotlight']['pane category'] = t('Custom');
   $entity_info['fieldable_panels_pane']['bundles']['spotlight']['pane top level'] = FALSE;
 }
 
@@ -56,39 +56,45 @@ function dkan_ipe_entity_info_alter(&$entity_info) {
  */
 function dkan_ipe_ctools_content_subtype_alter(&$subtype, &$plugin) {
   // Move the options we want available to editors to the custom category.
-  $dkan = array('Visualizations', 'Custom');
+  $dkan = array(t('Visualizations'), t('Custom'));
   if (in_array($subtype['category'], $dkan)) {
     $subtype['category'] = 'custom';
   }
+
   // Content list.
   if ($plugin['module'] == 'views_content' && $subtype['title'] == 'Add content list') {
-    $subtype['pane category'] = t('custom');
+    $subtype['category'] = 'custom';
+    $subtype['pane category'] = t('Custom');
     $subtype['top level'] = FALSE;
     $subtype['title'] = t('Content List');
   }
   // Submenu.
-  if ($plugin['module'] == 'menu_block' && $subtype['menu_title'] == 'Main menu') {
-    $subtype['pane category'] = t('custom');
+  if ($plugin['module'] == 'menu_block' && $subtype['menu_title'] == t('Main menu')) {
+    $subtype['category'] = 'custom';
+    $subtype['pane category'] = t('Custom');
     $subtype['top level'] = FALSE;
     $subtype['title'] = t('Submenu');
   }
   // Existing node.
-  if ($plugin['module'] == 'ctools' && $plugin['title'] == 'Existing node') {
-    $subtype['pane category'] = t('custom');
+  if ($plugin['module'] == 'ctools' && $plugin['title'] == t('Existing node')) {
+    $subtype['pane category'] = t('Custom');
     $subtype['top level'] = FALSE;
     $subtype['title'] = t('Existing content');
   }
   // New content.
-  if ($plugin['module'] == 'ctools' && $plugin['title'] == 'Custom content') {
-    $subtype['pane category'] = t('custom');
+  if ($plugin['module'] == 'ctools' && $plugin['title'] == t('Custom content')) {
+    $subtype['pane category'] = t('Custom');
     $subtype['top level'] = FALSE;
     $subtype['title'] = t('New custom content');
   }
   // Adjust titles.
-  if ($plugin['module'] == 'visualization_entity_embed' && $plugin['title'] == 'Visualization embed') {
+  if ($plugin['module'] == 'visualization_entity_embed' && $plugin['title'] == t('Visualization embed')) {
     $subtype['title'] = t('Visualization');
   }
-  if ($plugin['module'] == 'dkan_plugins' && $plugin['title'] == 'Button link') {
+  if ($plugin['module'] == 'dkan_plugins' && $plugin['title'] == t('Button link')) {
+    $subtype['category'] = 'custom';
+    $subtype['pane category'] = t('Custom');
+    $subtype['top level'] = FALSE;
     $subtype['title'] = t('Link');
   }
 }
